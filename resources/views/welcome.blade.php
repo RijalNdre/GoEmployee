@@ -1,0 +1,1 @@
+<a href="{{ route('hal_login') }}"><button> <p class="text-xl font-poppins">Masuk</p>  </button></a>
