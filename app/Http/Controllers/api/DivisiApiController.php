@@ -1,26 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\api;
 use App\Models\Divisi;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class DivisiController extends Controller
+class DivisiApiController extends Controller
 {
-    public function totalDivisi(){
-        $totalDivisi = Divisi::count();
-        return view('dashboard.index', compact('totalDivisi'));
-    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $divisi = Divisi::all();
-        $divisiCount = $divisi->count();
-        return view('dashboard.divisi.index')->with([
-            'divisis' => Divisi::all(),
-            'divisiCount' => $divisiCount
+        $divisis = Divisi::paginate(10);
+        return response()->json([
+            'data'=>$divisis
         ]);
     }
 
@@ -33,7 +27,9 @@ class DivisiController extends Controller
             'nama' => $request->nama,
             'kode' => $request->kode,
         ]);
-        return redirect()->route('divisi.index');
+        return response()->json([
+            'data'=>$divisi
+        ]);
     }
 
     /**
@@ -66,7 +62,9 @@ class DivisiController extends Controller
 
         $divisi->save();
 
-        return redirect()->route('divisi.index');
+        return response()->json([
+            'data'=>$divisi
+        ]);
     }
 
     /**
@@ -75,6 +73,8 @@ class DivisiController extends Controller
     public function destroy(Divisi $divisi)
     {
         Divisi::destroy($divisi->id);
-        return redirect()->route('departemen.index')->with('success', 'Data berhasil dihapus');
+        return response()->json([
+            'message'=>'divisi dihapus'
+        ]);
     }
 }

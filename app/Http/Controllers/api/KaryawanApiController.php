@@ -1,35 +1,21 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\api;
 use App\Models\Karyawan;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class KaryawanController extends Controller
+class KaryawanApiController extends Controller
 {
-
-    public function totalKaryawan()
-    {
-        $karyawan = Karyawan::all();
-        $karyawanCount = $karyawan->count();
-
-        return view('dashboard.index')->with('karyawanCount', $karyawanCount);
-        // $totalKaryawan = Karyawan::count();
-        // return view('dashboard.index', compact('totalKaryawan'));
-    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $karyawan = Karyawan::all();
-        $karyawanCount = $karyawan->count();
-        
-        return view('dashboard.karyawan.index')->with([
-            'karyawans' => Karyawan::all(),
-            'karyawanCount'=> $karyawanCount
+        $karyawans = Karyawan::paginate(10);
+        return response()->json([
+            'data'=>$karyawans
         ]);
-        // return view('page.karyawan.index');
     }
 
     /**
@@ -47,7 +33,9 @@ class KaryawanController extends Controller
             'divisi' => $request->divisi,
             'departemen' => $request->departemen,
         ]);
-        return redirect()->route('karyawan.index');
+        return response()->json([
+            'data'=>$karyawan
+        ]);
     }
 
     /**
@@ -83,7 +71,9 @@ class KaryawanController extends Controller
 
         $karyawan->save();
 
-        return redirect()->route('karyawan.index');
+        return response()->json([
+            'data'=>$karyawan
+        ]);
     }
 
     /**
@@ -92,6 +82,8 @@ class KaryawanController extends Controller
     public function destroy(Karyawan $karyawan)
     {
         Karyawan::destroy($karyawan->id);
-        return redirect()->route('karyawan.index')->with('success', 'Data berhasil dihapus');
+        return response()->json([
+            'message'=>'karyawan dihapus'
+        ]);
     }
 }

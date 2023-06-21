@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Http\Resources\User as UserResource;
 use App\Http\Requests\LoginRequest;
 use App\Models\User;
@@ -11,7 +12,8 @@ use Tymon\JWTAuth\Exceptions\JWTException;
 
 class LoginController extends Controller
 {
-    public function hal_login(){
+    public function hal_login()
+    {
         return view('login.index');
     }
 
@@ -26,24 +28,22 @@ class LoginController extends Controller
         } catch (JWTException $e) {
             return response()->json(['error' => 'Could not create token'], 500);
         }
+        // return response()->json(compact('token'));
+        $request->session()->regenerate();
+        return redirect()->intended('dashboard');
+        // return (new UserResource($request->user()))
+        //     ->additional(['meta' => [
+        //         'token' => $token,
+        //     ]]);
 
         //Ketika login berhasil
-        // return response()->json(compact('token'));
-
-        request()->session()->regenerate();
-        return redirect()->intended('dashboard');
     }
+};
 
-    
+
     // public function login(LoginRequest $request){
     //     $credentials = $request -> only('email', 'password');
     //     if(!$token = auth()->attempt($credentials)){
     //         return response()->json(['error'=>'invalid_credential'], 401);
     //     };
 
-    //     return (new UserResource($request->user()))
-    //             ->additional(['meta' => [
-    //                 'token' => $token,
-    //             ]]);
-    // }
-}

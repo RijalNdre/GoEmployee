@@ -4,7 +4,12 @@
     <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
         <h1 class="h2">Data Departemen</h1>
     </div>
-    <a href="/tambah">
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <p class="card-text">Total Departemen: {{$departemenCount}}</p>
+        </div>
+    </div>
+    <a href="/tambahDepartemen">
         <button class="btn btn-primary py-2 mt-2">Tambah data</button>
     </a>
     <div class="table-responsive mt-3">
@@ -26,7 +31,7 @@
                         <td>
                             <a href="/departemen/{{ $departemen->id }}" class="badge bg-info"><span
                                     data-feather="eye"></span></a>
-                            <a href="/departemen/{{$departemen->id}}/edit" class="badge bg-warning"><span data-feather="edit"></span></a>
+                            <a href="/departemen/{{ $departemen->id }}/edit" class="badge bg-warning"><span data-feather="edit"></span></a>
                             <form action="/departemen/{{ $departemen->id }}" method="POST" class="d-inline">
                                 @method('delete')
                                 @csrf

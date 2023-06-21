@@ -1,10 +1,12 @@
 <?php
 
-use App\Http\Controllers\KaryawanController;
-use App\Http\Controllers\RegisterController;
+use App\Http\Controllers\api\KaryawanApiController;
+use App\Http\Controllers\api\LoginApiController;
+use App\Http\Controllers\api\RegisterApiController;
+use App\Http\Controllers\api\DivisiApiController;
+use App\Http\Controllers\api\DepartemenApiController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,10 +19,13 @@ use App\Http\Controllers\UserController;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
+Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
 
-Route::apiResource('/karyawan', KaryawanController::class);
-Route::post('/register', [RegisterController::class, 'register']);
+Route::post('/registerApi', [RegisterApiController::class, 'registerApi'])->name('registerApi');
+Route::post('/loginApi', [LoginApiController::class, 'loginApi'])->name('loginApi');
+Route::apiResource('/karyawanApi', KaryawanApiController::class);
+Route::apiResource('/divisiApi', DivisiApiController::class);
+Route::apiResource('/departemenApi', DepartemenApiController::class);

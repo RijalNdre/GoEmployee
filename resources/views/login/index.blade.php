@@ -20,19 +20,24 @@
         <form action="{{route('login')}}" method="POST">
             @csrf
             <div class="form-floating">
-                <input type="email" name="email" class="form-control" id="floatingInput" placeholder="name@example.com">
-                <label for="floatingInput">Masukkan email</label>
+                <input type="email" name="email" class="form-control" id="email" placeholder="name@example.com">
+                <label for="email">Masukkan email</label>
             </div>
             <div class="form-floating">
-                <input type="password" name="password" class="form-control" id="floatingPassword" placeholder="Password">
-                <label for="floatingPassword">Masukkan password</label>
+                <input type="password" name="password" class="form-control" id="password" placeholder="Password">
+                <label for="password">Masukkan password</label>
             </div>
             <button class="btn btn-primary w-100 py-2 mt-2" type="submit">Login</button>
         </form>
-        <small class="d-block text-center mt-4">Belum memiliki akun? <a href="{{route('hal_register')}}">Register</a></small>
+        <small class="d-block text-center mt-4">Belum memiliki akun? <a
+                href="{{ route('hal_register') }}">Register</a></small>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-geWF76RCwLtnZ8qwWowPQNguL3RmwHVBC9FhGdlKrxdiJJigb/j/68SIy3Te4Bkz" crossorigin="anonymous">
+    </script>
+
+    <script>
+        
     </script>
 </body>
 

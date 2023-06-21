@@ -1,26 +1,20 @@
 <?php
 
-namespace App\Http\Controllers;
-
+namespace App\Http\Controllers\api;
 use App\Models\Departemen;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class DepartemenController extends Controller
+class DepartemenApiController extends Controller
 {
-    public function totalDepartemen(){
-        $totalDepartemen = Departemen::count();
-        return view('dashboard.index', compact('totalDepartemen'));
-    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $departemen = Departemen::all();
-        $departemenCount = $departemen->count();
-        return view('dashboard.departemen.index')->with([
-            'departemens' => Departemen::all(),
-            'departemenCount'=> $departemenCount
+        $departemens = Departemen::paginate(10);
+        return response()->json([
+            'data'=>$departemens
         ]);
     }
 
@@ -41,7 +35,9 @@ class DepartemenController extends Controller
             'nama' => $request->nama,
             'kode' => $request->kode,
         ]);
-        return redirect()->route('departemen.index');
+        return response()->json([
+            'data'=>$departemen
+        ]);
     }
 
     /**
@@ -74,7 +70,9 @@ class DepartemenController extends Controller
 
         $departemen->save();
 
-        return redirect()->route('$departemen.index');
+        return response()->json([
+            'data'=>$departemen
+        ]);
     }
 
     /**
@@ -83,6 +81,8 @@ class DepartemenController extends Controller
     public function destroy(Departemen $departemen)
     {
         Departemen::destroy($departemen->id);
-        return redirect()->route('departemen.index')->with('success', 'Data berhasil dihapus');
+        return response()->json([
+            'message'=>'departemen dihapus'
+        ]);
     }
 }

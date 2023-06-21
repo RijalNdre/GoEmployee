@@ -20,20 +20,17 @@ class RegisterController extends Controller
 
         ]);
 
+        // $credentials = $request -> only('email', 'password');
+        // $token = auth()->attempt($credentials);
+
+        // return response (new UserResource($request->user()))
+        //         ->additional(['meta' => [
+        //             'token' => $token,
+        //         ]]);
         return redirect()->route('hal_login');
         // return response()->json([
         //     'msg'=>'Register berhasil',
         //     'user'=> $user
         // ]);
-
-
-        // $credentials = $request -> only('email', 'password');
-        // $token = auth()->attempt($credentials);
-
-        // return (new UserResource($request->user()))
-        //         ->additional(['meta' => [
-        //             'token' => $token,
-        //         ]]);
-
     }
 }
